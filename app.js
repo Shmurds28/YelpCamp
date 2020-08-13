@@ -15,8 +15,8 @@ var commentRoutes = require("./routes/comments");
 var campgroundRoutes = require("./routes/campgrounds");
 var indexRoutes = require("./routes/index");
 
-// mongoose.connect("mongodb://localhost/yelp_camp");
-mongoose.connect("mongodb+srv://Simamkele:<simamkele$2000>@yelpcamp.krbsg.mongodb.net/<yelpcamp>?retryWrites=true&w=majority");
+ mongoose.connect("mongodb://localhost/yelp_camp");
+//mongoose.connect("mongodb+srv://Simamkele:<simamkele$2000>@yelpcamp.krbsg.mongodb.net/<yelpcamp>?retryWrites=true&w=majority");
 
 mongoose.connection.on('connected', () => {
     console.log("Mongoose is connected");
@@ -54,6 +54,6 @@ app.use(indexRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 app.use("/campgrounds", campgroundRoutes);
 
-app.listen("8080", function(){
+app.listen(process.env.PORT || "6000", function(){
     console.log("Yelp camp has started");
 });
