@@ -15,7 +15,8 @@ var commentRoutes = require("./routes/comments");
 var campgroundRoutes = require("./routes/campgrounds");
 var indexRoutes = require("./routes/index");
 
-mongoose.connect("mongodb://localhost/yelp_camp");
+// mongoose.connect("mongodb://localhost/yelp_camp");
+mongoose.connect("mongodb+srv://Simamkele:<simamkele$2000>@yelpcamp.krbsg.mongodb.net/<yelpcamp>?retryWrites=true&w=majority");
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 app.use(express.static("Images"));
