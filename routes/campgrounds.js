@@ -1,8 +1,50 @@
 var express = require("express");
 var router = express.Router();
+const cloudinary = require('cloudinary');
+const multer = require("multer");
 var campground = require("../models/campground");
 var middleware = require("../middleware");
+var path = require("path");
+var mongoose = require("mongoose");
+var bodyParser =require("body-parser");
+const upload = require("../middleware/upload");
  
+// var imgModel = require('./models/image'); 
+
+var fs = require('fs'); 
+ require('dotenv/config'); 
+
+ router.use(bodyParser.urlencoded({ extended: false })) ;
+ router.use(bodyParser.json()) ;
+
+mongoose.connect("mongodb://localhost/yelp_camp", 
+    { useNewUrlParser: true, useUnifiedTopology: true }, err => { 
+        console.log('connected') ;
+    }); 
+
+    
+
+
+//upload single file
+const uploadFile = async (req, res, next) => {
+  try {
+    await upload.uploadFilesMiddleware(req, res);
+
+    // console.log(req.file);
+    if (req.file == undefined) {
+      return res.send(`You must select a file.`);
+    }
+
+    return next();
+  } catch (error) {
+    console.log(error);
+    return res.send(`Error when trying upload image: ${error}`);
+  }
+};
+
+
+
+
 
 //INDEX- Show all Campgrounds
 router.get("/", function(req, res){
@@ -17,16 +59,23 @@ router.get("/", function(req, res){
  
  });
  //CREATE- Add new Campground to the DB
-router.post("/", middleware.isLoggedIn, function(req, res){
+router.post("/", middleware.isLoggedIn, uploadFile, function(req, res){
     var name = req.body.name;
-    var image = req.body.image;
     var desc = req.body.description;
     var price = req.body.price;
     var author = {
         id: req.user._id,
         username: req.user.username
     } 
-    var newCampground = {name: name, price: price, image: image, description:desc, author: author};
+    console.log(req.file);
+    var image = { 
+        data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)), 
+        contentType: 'image/png'
+    }
+   
+    var newCampground = {name: name, price: price, description:desc, author: author, image: image};
+
+  
     //Create new campgrounds and add to the database
      campground.create(newCampground, function(err, newlyCreated){
          if(err){
@@ -65,12 +114,17 @@ router.get("/:id/edit", middleware.checkCampgroundOwnership, function(req, res){
 });
 
  //UPDATE CAMPGROUND ROUTE
-router.put("/:id", middleware.checkCampgroundOwnership, function(req, res){
+router.put("/:id", middleware.checkCampgroundOwnership, uploadFile, function(req, res){
     //find and update correct campground
     campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground){
         if(err){
             res.redirect("/campgrounds");
         }else{
+            updatedCampground.image = { 
+                data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)), 
+                contentType: 'image/png'
+            };
+            updatedCampground.save();
             res.redirect("/campgrounds/" + req.params.id);
         }  
     });

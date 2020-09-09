@@ -12,7 +12,8 @@
         </div>
         <div class="col-md-9">
             <div class="thumbnail">
-                <img class="img-responsive" src="<%= campground.image %>">
+                <img class="img-responsive" src="data:campground/<%=campground.image.contentType%>;base64, 
+                <%=campground.image.data.toString('base64')%>">
                 <div class="caption-full">
                     <h4 class="pull-right" >R<%= campground.price %>/night</h4>
                     <h4><a><%= campground.name %></a></h4>
@@ -30,7 +31,19 @@
             </div>
             <div class="well">
                 <div class="text-right">
-                    <a class="btn btn-success" href="/campgrounds/<%= campground._id %>/comments/new">Add New comment</a>
+                    <a class="btn btn-success" data-toggle="collapse" data-target=".addComment" >Add New comment</a>
+                </div>
+                <!-- href="/campgrounds/<%= campground._id %>/comments/new" -->
+                <div class="collapse addComment">
+                    <form action="/campgrounds/<%= campground._id %>/comments/new" method="post">
+                        <div class="form-group row">   
+                            <!-- <input class=" form-control" type="text" name="" placeholder="text"> -->
+                            <textarea class=" form-control" name="comment[text]" rows="5" placeholder="Write a comment..."></textarea>
+                            <button class="btn btn-md btn-primary">Comment</button>
+                        </div>
+                    </form>
+                  
+                  
                 </div>
                 <hr>
                 <% campground.comments.forEach(function(comment){ %>

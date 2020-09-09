@@ -10,24 +10,34 @@ var seedDB = require("./seeds");
 var Comment = require("./models/comment");
 var User = require("./models/user");
 var methodOverride = require("method-override");
+var path = require("path");
+var crypto = require("crypto");
+var multer = require('multer');
+var GridfsStorage = require("multer-gridfs-storage");
+var Grid = require("gridfs-stream");
+
 
 var commentRoutes = require("./routes/comments");
 var campgroundRoutes = require("./routes/campgrounds");
 var indexRoutes = require("./routes/index");
 
- mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/yelp_camp");
+
+var fs = require('fs'); 
+ require('dotenv/config'); 
+
+//  const conn = mongoose.connect( "mongodb://localhost/yelp_camp");
+//  conn;
 //mongoose.connect("mongodb+srv://Simamkele:<simamkele$2000>@yelpcamp.krbsg.mongodb.net/<yelpcamp>?retryWrites=true&w=majority");
+mongoose.connect("mongodb://localhost/yelp_camp");
 
-mongoose.connection.on('connected', () => {
-    console.log("Mongoose is connected");
-});
 
-app.use(bodyparser.urlencoded({extended: true}));
+app.use(bodyparser.urlencoded({extended: false}));
 app.use(express.static(__dirname + "/public"));
 app.use(express.static("Images"));
 app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
 app.use(flash());
+app.use(bodyparser.json());
 //seedDB(); //seed database
 
 //PASSPORT CONFIGURATION
@@ -49,12 +59,13 @@ app.use(function(req, res, next){
     next();
 });
 
+
 //requiring routes
 app.use(indexRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 app.use("/campgrounds", campgroundRoutes);
 
 
-app.listen(process.env.PORT || "6000", function(){
+app.listen("1060", function(){
     console.log("Yelp camp has started");
 });

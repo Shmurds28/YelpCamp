@@ -2,7 +2,6 @@ var mongoose = require("mongoose");
 
 var campgroundSchema = new mongoose.Schema({
    name: String,
-   image: String,
    description: String,
    price: String,
    comments: [
@@ -17,7 +16,12 @@ var campgroundSchema = new mongoose.Schema({
             ref: "User"
          },
          username: String
-   }
+   },
+   image: 
+   { 
+       data: Buffer, 
+       contentType: String 
+   } 
 });
 
 module.exports = mongoose.model("Campground", campgroundSchema);

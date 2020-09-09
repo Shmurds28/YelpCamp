@@ -23,7 +23,7 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 });
 
 //COMMENTS CREATE
-router.post("/", middleware.isLoggedIn, function(req, res){
+router.post("/new", middleware.isLoggedIn, function(req, res){
     //lookup campground using ID
     campground.findById(req.params.id, function(err, campground){
         if(err){
