@@ -28,7 +28,7 @@ var fs = require('fs');
 //  const conn = mongoose.connect( "mongodb://localhost/yelp_camp");
 //  conn;
 //mongoose.connect("mongodb+srv://Simamkele:<simamkele$2000>@yelpcamp.krbsg.mongodb.net/<yelpcamp>?retryWrites=true&w=majority");
-mongoose.connect("mongodb://localhost/yelp_camp");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/yelp_camp");
 
 
 app.use(bodyparser.urlencoded({extended: false}));
@@ -66,6 +66,6 @@ app.use("/campgrounds/:id/comments", commentRoutes);
 app.use("/campgrounds", campgroundRoutes);
 
 
-app.listen("1060", function(){
+app.listen( process.env.PORT || "1060", function(){
     console.log("Yelp camp has started");
 });
