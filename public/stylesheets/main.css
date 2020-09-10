@@ -121,9 +121,13 @@ nav{
 @media (max-width: 767.98){
     .container{
         width: 100% !important;
-        background-color: green !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 0 !important;
     }
     .jumbotron{
         width: 100% !important;
+        margin: 0 !important;
+        
     }
 }
