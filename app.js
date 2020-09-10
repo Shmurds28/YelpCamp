@@ -15,6 +15,7 @@ var crypto = require("crypto");
 var multer = require('multer');
 var GridfsStorage = require("multer-gridfs-storage");
 var Grid = require("gridfs-stream");
+var moment = require("moment");
 
 
 var commentRoutes = require("./routes/comments");
@@ -38,6 +39,7 @@ app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
 app.use(flash());
 app.use(bodyparser.json());
+moment().format(); 
 //seedDB(); //seed database
 
 //PASSPORT CONFIGURATION
@@ -65,6 +67,7 @@ app.use(indexRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 app.use("/campgrounds", campgroundRoutes);
 
+app.locals.moment = require('moment');
 
 app.listen( process.env.PORT || "1060", function(){
     console.log("Yelp camp has started");

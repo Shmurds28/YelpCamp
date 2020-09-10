@@ -30,9 +30,10 @@ router.post("/new", middleware.isLoggedIn, function(req, res){
             console.log(err);
             res.redirect("/campgrounds");
         } else {
-         Comment.create(req.body.comment, function(err, comment){
+         Comment.create({text: req.body.text}, function(err, comment){
             if(err){
                 req.flash("error", "Something went wrong.");
+                res.redirect('/campgrounds/' + campground._id);
                 console.log(err);
             } else {
                 // username and id to comment
