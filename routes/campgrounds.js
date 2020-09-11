@@ -42,10 +42,6 @@ const uploadFile = async (req, res, next) => {
   }
 };
 
-
-
-
-
 //INDEX- Show all Campgrounds
 router.get("/", function(req, res){
     //Get all campgrounds from DB
@@ -58,6 +54,7 @@ router.get("/", function(req, res){
     });
  
  });
+
  //CREATE- Add new Campground to the DB
 router.post("/", middleware.isLoggedIn, uploadFile, function(req, res){
     var name = req.body.name;

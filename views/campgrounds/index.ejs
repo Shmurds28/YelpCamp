@@ -8,11 +8,21 @@
         <p>
             <a class="btn-primary btn-lg" href="/campgrounds/new">Add new campground</a>
         </p>
+        <p>
+            <form action="" method="post" class="form-inline search-form">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="search" placeholder="Search campground...">
+                    <input class="form-control btn-primary" type="submit" value="Search">
+                </div>
+                
+            </form>
+          
+        </p>
         </div>
     </header>
     <div class="campground row text-center">
         <% campgrounds.forEach(function(campground){ %>
-            <div class="col-lg-3 col-md-4 col-sm-8 col-xs-12" >
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4" >
                 <div class="thumbnail">
                    <a href="/campgrounds/<%= campground._id %>">
                         <img src="data:campground/<%=campground.image.contentType%>;base64, 

@@ -1,34 +1,21 @@
-var express = require("express");
-var app = express();
-var bodyparser = require("body-parser");
-var mongoose = require("mongoose");
-var flash = require("connect-flash");
-var passport = require("passport");
-LocalStrategy = require("passport-local");
-var campground = require("./models/campground");
-var seedDB = require("./seeds");
-var Comment = require("./models/comment");
-var User = require("./models/user");
-var methodOverride = require("method-override");
-var path = require("path");
-var crypto = require("crypto");
-var multer = require('multer');
-var GridfsStorage = require("multer-gridfs-storage");
-var Grid = require("gridfs-stream");
-var moment = require("moment");
-
-
-var commentRoutes = require("./routes/comments");
-var campgroundRoutes = require("./routes/campgrounds");
-var indexRoutes = require("./routes/index");
-
+var express                 = require("express"),
+     app                     = express(),
+     bodyparser              = require("body-parser"),
+     mongoose                = require("mongoose"),
+     flash                   = require("connect-flash"),
+     passport                = require("passport"),
+    LocalStrategy               = require("passport-local"),
+    seedDB                  = require("./seeds"),
+    User                    = require("./models/user"),
+    methodOverride          = require("method-override"),
+    moment                  = require("moment"),
+    commentRoutes = require("./routes/comments"),
+    campgroundRoutes = require("./routes/campgrounds"),
+    indexRoutes = require("./routes/index");
 
 var fs = require('fs'); 
  require('dotenv/config'); 
 
-//  const conn = mongoose.connect( "mongodb://localhost/yelp_camp");
-//  conn;
-//mongoose.connect("mongodb+srv://Simamkele:<simamkele$2000>@yelpcamp.krbsg.mongodb.net/<yelpcamp>?retryWrites=true&w=majority");
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/yelp_camp");
 
 
