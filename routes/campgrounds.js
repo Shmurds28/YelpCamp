@@ -1,62 +1,44 @@
 var express = require("express");
 var router = express.Router();
-const cloudinary = require('cloudinary');
-const multer = require("multer");
 var campground = require("../models/campground");
 var middleware = require("../middleware");
 var path = require("path");
-var mongoose = require("mongoose");
-var bodyParser =require("body-parser");
-const upload = require("../middleware/upload");
- 
-// var imgModel = require('./models/image'); 
-
-var fs = require('fs'); 
- require('dotenv/config'); 
-
- router.use(bodyParser.urlencoded({ extended: false })) ;
- router.use(bodyParser.json()) ;
-
-mongoose.connect("mongodb://localhost/yelp_camp", 
-    { useNewUrlParser: true, useUnifiedTopology: true }, err => { 
-        console.log('connected') ;
-    }); 
-
-    
+var uploadController = require("../middleware/controllers/upload"); 
 
 
-//upload single file
-const uploadFile = async (req, res, next) => {
-  try {
-    await upload.uploadFilesMiddleware(req, res);
-
-    // console.log(req.file);
-    if (req.file == undefined) {
-      return res.send(`You must select a file.`);
-    }
-
-    return next();
-  } catch (error) {
-    console.log(error);
-    return res.send(`Error when trying upload image: ${error}`);
-  }
-};
 
 //INDEX- Show all Campgrounds
 router.get("/", function(req, res){
     //Get all campgrounds from DB
-    campground.find({}, function(err, allcampgrounds){
-         if(err){
-             console.log(err);
-         }else{
-             res.render("campgrounds/index", {campgrounds:allcampgrounds});
-         }
-    });
+    var noMatch = null;
+
+    if(req.query.search){
+        const regex = new RegExp(escapeRegex(req.query.search), "gi");
+        campground.find({name: regex}, function(err, allcampgrounds){
+            if(err){
+                console.log(err);
+            }else{
+                if(allcampgrounds < 1){
+                    noMatch = "No campgrounds Found."
+                }
+                res.render("campgrounds/index", {campgrounds:allcampgrounds});
+            }
+       });
+    }else{
+        campground.find({}, function(err, allcampgrounds){
+            if(err){
+                console.log(err);
+            }else{
+                res.render("campgrounds/index", {campgrounds:allcampgrounds});
+            }
+       });
+    }
+  
  
  });
 
  //CREATE- Add new Campground to the DB
-router.post("/", middleware.isLoggedIn, uploadFile, function(req, res){
+router.post("/", middleware.isLoggedIn, uploadController.uploadFile, function(req, res){
     var name = req.body.name;
     var desc = req.body.description;
     var price = req.body.price;
@@ -77,6 +59,8 @@ router.post("/", middleware.isLoggedIn, uploadFile, function(req, res){
      campground.create(newCampground, function(err, newlyCreated){
          if(err){
              console.log(err);
+             req.flash("error", "Campground could not be added, try again.");
+             res.redirect("/campgrounds");
          }else{
              //redirect back to campgrounds page
              res.redirect("/campgrounds");
@@ -95,6 +79,8 @@ router.get("/:id", function(req, res){
      campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
          if(err){
              console.log(err);
+             req.flash("error", "No campground found");
+             res.redirect("/campgrounds");
          }else{
             //  console.log(foundCampground);
              //render show template with that campground
@@ -111,10 +97,11 @@ router.get("/:id/edit", middleware.checkCampgroundOwnership, function(req, res){
 });
 
  //UPDATE CAMPGROUND ROUTE
-router.put("/:id", middleware.checkCampgroundOwnership, uploadFile, function(req, res){
+router.put("/:id", middleware.checkCampgroundOwnership, uploadController.uploadFile, function(req, res){
     //find and update correct campground
     campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground){
         if(err){
+            req.flash("error", "Campground could not be updated, try again.")
             res.redirect("/campgrounds");
         }else{
             updatedCampground.image = { 
@@ -122,6 +109,7 @@ router.put("/:id", middleware.checkCampgroundOwnership, uploadFile, function(req
                 contentType: 'image/png'
             };
             updatedCampground.save();
+            req.flash("success", "Campground successfully updated.")
             res.redirect("/campgrounds/" + req.params.id);
         }  
     });
@@ -132,8 +120,10 @@ router.put("/:id", middleware.checkCampgroundOwnership, uploadFile, function(req
 router.delete("/:id", middleware.checkCampgroundOwnership, function(req, res){
     campground.findByIdAndRemove(req.params.id, function(err){
         if(err){
+            req.flash("error", "Campground could not be deleted.")
             res.redirect("/campgrounds");
         }else{
+            req.flash("success", "Campground successfully deleted.")
             res.redirect("/campgrounds");
         }
     });
