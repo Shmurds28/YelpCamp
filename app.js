@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 var express                 = require("express"),
      app                     = express(),
      bodyparser              = require("body-parser"),
@@ -15,7 +17,6 @@ var express                 = require("express"),
 
 var fs = require('fs'); 
  require('dotenv/config'); 
-
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/yelp_camp");
 
 

@@ -1,211 +1,234 @@
-body{
-    background: url("/background2.jpg") no-repeat center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+body {
+  background: url("/background2.jpg") no-repeat center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
-nav{
-    /* opacity: 80%; */
-   margin: 0;
+nav {
+  /* opacity: 80%; */
+  margin: 0;
 }
 
-
-.container{
-    margin-top: 0;
-    margin-bottom: 20px;
-    padding: 0;
+.container {
+  margin-top: 0;
+  margin-bottom: 20px;
+  padding: 0;
 }
 
-.search input, .well .btn, .btn, .alert{
-    border-radius: 25px;
+.search input,
+.well .btn,
+.btn,
+.alert {
+  border-radius: 25px;
 }
 
-.jumbotron .container{
-    margin-bottom: 0;
+.jumbotron .container {
+  margin-bottom: 0;
 }
 
-.welcome{
-    color: #337ab7;
+.welcome {
+  color: #337ab7;
 }
 
-.form-container .welcome{
-    margin-top: 0;
-    text-align: center;
-    margin-bottom: 25px;
+.form-container .welcome {
+  margin-top: 0;
+  text-align: center;
+  margin-bottom: 25px;
 }
 
-.jumbotron{
-    /* opacity: 80%; */
-    margin-bottom: 15px;
-    margin-top: 0;
-    background: url("/background.jpg")no-repeat center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+.jumbotron {
+  /* opacity: 80%; */
+  margin-bottom: 15px;
+  margin-top: 0;
+  background: url("/background.jpg") no-repeat center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
-.jumbotron p{
-    color: white;
+.jumbotron p {
+  color: white;
 }
 
-.jumbotron .welcome{
-    font-weight: 700;
-    text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
-                0px 8px 13px rgba(0,0,0,0.1),
-                0px 18px 23px rgba(0,0,0,0.1);
+.jumbotron .welcome {
+  font-weight: 700;
+  text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), 0px 8px 13px rgba(0, 0, 0, 0.1),
+    0px 18px 23px rgba(0, 0, 0, 0.1);
 }
 
-.campground{
-    display: flex;
-    flex-wrap: wrap;
-    text-align: center;
+.campground {
+  display: flex;
+  flex-wrap: wrap;
+  /* text-align: center; */
 }
 
-.campground .thumbnail{
-    opacity: 80%;
-    position: relative;
-    height: 320px;
-    border-style: outset;
+.campground .thumbnail {
+  opacity: 80%;
+  position: relative;
+  height: 320px;
+  border-style: outset;
+  border-radius: 15px;
 }
 
-.campground .text{
-    position: absolute;
-    z-index: 999;
-    margin: 0 auto;
-    left: 0;
-    right: 0;        
-    
-    top: 0%; /* Adjust this value to move the positioned div up and down */
-    background: rgba(0, 0, 0, 0.8);
-    font-family: Arial,sans-serif;
-    color: #fff;
-    width: 100%; /* Set the width of the positioned div */
-    cursor: pointer;
+.campground .text {
+  position: absolute;
+  z-index: 999;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+
+  top: 0%; /* Adjust this value to move the positioned div up and down */
+  background: rgba(0, 0, 0, 0.8);
+  font-family: Arial, sans-serif;
+  color: #fff;
+  width: 100%; /* Set the width of the positioned div */
+  cursor: pointer;
 }
 
-.text a{
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
+.text a {
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
 }
 
-.text a:hover{
-    text-decoration: none;
-    color: #337ab7
+.text a:hover {
+  text-decoration: none;
+  color: #337ab7;
 }
 
-.thumbnail a img{
-    width: 100%;
-    height: 100%;
+.thumbnail a img {
+  width: 100%;
+  height: 70%;
+  border-radius: 15px 15px 0 0;
 }
 
 .thumbnail img{
     width: 100%;
 }
 
-.thumbnail a{
-    height: 100%;
+.thumbnail .name {
+  float: left;
+  color: royalblue;
+  font-weight: bold;
+  margin: 0.4rem;
 }
 
-.thumbnail{
-    padding: 0;
-}
-.thumbnail .caption-full{
-    padding: 9px;
-}
-
-.delete-form{
-    display: inline;
-    margin :20px auto;
+.thumbnail .price {
+  float: right;
+  color: red;
+  font-weight: bold;
+  margin: 0.4rem;
 }
 
-.navbar-header a{
-    color:orange;
+.thumbnail a {
+  height: 100%;
 }
 
-.addComment-hr{
-    border-color: #337ab7;
+.thumbnail {
+  padding: 0;
+}
+.thumbnail .caption-full {
+  padding: 9px;
 }
 
-.well{
-    height: 450px;
-    overflow-y:auto;
+.delete-form {
+  display: inline;
+  margin: 20px auto;
 }
 
-.addComment{
-    margin: 20px;
-    background-color: white;
-    padding:20px;
-    border-left: 5px solid #337ab7;
-    border-radius: 15px;
+.navbar-header a {
+  color: orange;
 }
 
-.addComment textarea{
-    margin-bottom: 10px;
+.addComment-hr {
+  border-color: #337ab7;
 }
 
-.brand{
-    color: #337ab7;
-    font-weight: bold;
-    font-size: 25px;
+.well {
+  height: 450px;
+  overflow-y: auto;
 }
 
-.addComment a{
-    font-weight: bold;
-    text-decoration: underline;
+.addComment {
+  margin: 20px;
+  background-color: white;
+  padding: 20px;
+  border-left: 5px solid #337ab7;
+  border-radius: 15px;
 }
 
-
-.form-container{
-    /* width: 30%;  */
-    margin:20px auto;
-    margin-left: 25%;
-    margin-right: 25%;
-    padding: 20px;
-    /* border: 1px solid gray; */
-    border-style: outset;
-    background-color: white;
-    opacity: 90%;
-    margin-bottom: 50px;
-}
-.form-container form{
-    margin-bottom: 20px;
+.addComment textarea {
+  margin-bottom: 10px;
 }
 
-@media (max-width: 767.98px){
-    .container{
-        width: 100% !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        padding: 0 !important;
-    }
-    .jumbotron{
-        width: 100% !important;
-        margin: 0 !important;
-        
-    }
+.brand {
+  color: #337ab7;
+  font-weight: bold;
+  font-size: 25px;
 }
 
+.addComment a {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.form-container {
+  /* width: 30%;  */
+  margin: 20px auto;
+  margin-left: 25%;
+  margin-right: 25%;
+  padding: 20px;
+  /* border: 1px solid gray; */
+  border-style: outset;
+  background-color: white;
+  opacity: 90%;
+  margin-bottom: 50px;
+}
+.form-container form {
+  margin-bottom: 20px;
+}
+
+#map {
+  height: 400px;
+  width: 100%;
+}
+
+@media (max-width: 767.98px) {
+  .container {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 10px !important;
+  }
+  .jumbotron {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .form-container {
+    margin: 15px 15px !important;
+  }
+}
 
 @media (min-width: 992px) {
-    .card-img-top {
-        object-fit: cover;
-        height: 175px;
-        width: 100%;
-    }
+  .card-img-top {
+    object-fit: cover;
+    height: 175px;
+    width: 100%;
+  }
 }
 
-footer{
-    color: white;
-    /* margin-top: 30px; */
-    width: 100%;
-    background-color: #333;
-    padding: 5px;
-    text-align: center;
-    bottom: 0;
-    position: fixed;
-    margin-bottom: 0;
+footer {
+  color: white;
+  /* margin-top: 30px; */
+  width: 100%;
+  background-color: #333;
+  padding: 5px;
+  text-align: center;
+  bottom: 0;
+  position: fixed;
+  margin-bottom: 0;
 }

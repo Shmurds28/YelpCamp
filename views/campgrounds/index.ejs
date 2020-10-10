@@ -1,46 +1,59 @@
 <%- include('../partials/header') %>
-  
+
 <div class="container">
-    <header class="jumbotron">
-        <div class="container">
-            <h1> <span class="welcome">Welcome to YelpCamp</span> </h1>
-        <p>View Our hand-picked campgrounds from all over the world</p>
-        <p>
-            <a class="btn-primary btn-lg" href="/campgrounds/new">Add new campground</a>
-        </p>
-        <p>
-            <form action="/campgrounds" method="post" class="form-inline search">
+  <header class="jumbotron">
+    <div class="container">
+      <h1><span class="welcome">Welcome to YelpCamp</span></h1>
+      <p>View Our hand-picked campgrounds from all over the world</p>
+      <p>
+        <a class="btn-primary btn-lg" href="/campgrounds/new"
+          >Add new campground</a
+        >
+      </p>
+      <p>
+        <!-- <form action="/campgrounds" method="post" class="form-inline search">
                 <div class="form-group">
                     <input class="form-control" type="text" name="search" placeholder="Search campground...">
                     <!-- <input class="form-control btn-primary" type="submit" value="Search"> -->
-                </div>
-                
-            </form>
-          
-        </p>
-        </div>
-    </header>
-    <div class="campground row text-center">
-        <% campgrounds.forEach(function(campground){ %>
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4" >
-                <div class="thumbnail">
-                   <a href="/campgrounds/<%= campground._id %>">
-                        <img src="data:campground/<%=campground.image.contentType%>;base64, 
-                        <%=campground.image.data.toString('base64')%>">
-                    </a>
-                   
-                    <div class="text">
-                        <h4> <a href="/campgrounds/<%= campground._id %>"><%= campground.name.toUpperCase() %></a> </h4>
-                    </div>
-                    <!-- <p>
-                        <a href="/campgrounds/<%= campground._id %>" class="btn btn-primary">More Info</a>
-                    </p> -->
-                </div>
-                
-            </div>
-        <% }); %>
-    </div>
+        <!-- </div> -->
 
+        <!-- </form> -->
+      </p>
+    </div>
+  </header>
+  <div class="campground row text-center">
+    <% campgrounds.forEach(function(campground){ %>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">
+      <div class="thumbnail">
+        <a href="/campgrounds/<%= campground._id %>">
+          <img
+            src="data:campground/<%=campground.image.contentType%>;base64, 
+                        <%=campground.image.data.toString('base64')%>"
+          />
+        </a>
+
+        <!-- <div class="text">
+                        <h4> <a href="/campgrounds/<%= campground._id %>"><%= campground.name.toUpperCase() %></a> </h4>
+                    </div> -->
+        <p class="name"><%= campground.name.toUpperCase() %></p>
+        <p class="price">R <%= campground.price %></p>
+
+        <br />
+        <br />
+        <% if(campground.comments.length == 0){ %>
+        <em>No Comments found...</em>
+        <% }else if(campground.comments.length == 1){ %>
+        <em>1 camper added a commment on this campground</em>
+        <% }else{ %>
+        <em>
+          <%= campground.comments.length %> campers added comments on this
+          campground.</em
+        >
+        <% }%>
+      </div>
+    </div>
+    <% }); %>
+  </div>
 </div>
 
 <%- include('../partials/footer') %>
